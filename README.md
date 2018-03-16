@@ -8,7 +8,12 @@ Start from `models_tester.pd` and continue from there.
 
 ## Compiling externals
 
-The Pd externals are already complied and checked into the repo. If you want to recompile them:
+The Pd externals are already complied and checked into the repo. If you want to recompile them.
+
+First:
+
+    git submodule init
+    git submodule update
 
 ### Linux
 
