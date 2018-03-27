@@ -15,15 +15,15 @@ typedef struct {
 void percentile_calc(Percentile *x, t_floatarg new_value)
 {
   // Calculate and send percentile
-  t_int larger_values = 0;
+  t_int smaller_values = 0;
   for(size_t i = 0; i < x->buffer_length; i++)
   {
     if(new_value > x->buffer[i])
     {
-      larger_values++;
+      smaller_values++;
     }
   }
-  outlet_float(x->x_obj.ob_outlet, ((t_float) larger_values) / x->buffer_length);
+  outlet_float(x->x_obj.ob_outlet, ((t_float) smaller_values) / x->buffer_length);
 
   // Cyclic insert
   x->buffer[x->index] = new_value;
