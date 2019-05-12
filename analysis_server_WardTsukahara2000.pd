@@ -1,0 +1,64 @@
+#N canvas 1070 101 546 448 10;
+#X obj 215 312 bng 25 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 215 232 smooth_pitch 8192;
+#X obj 215 284 WardTsukahara2000 100;
+#X text 34 11 Ward and Tsukahara 2000 model \, based on snippet from
+Poppe et al. 2010 Provide backchannel feedback upon detection of: A
+region of pitch less than the 26th-percentile pitch level and continuing
+for at least 110ms \, coming after at least 700ms of speech \, provided
+that no backchannel has been output within the preceding 800ms \, after
+700ms wait.;
+#X obj 338 261 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 215 347 send 1;
+#X floatatom 326 403 5 0 0 0 - - -;
+#X obj 215 374 netreceive -b 50003;
+#X text 360 402 Active connections;
+#X text 294 351 Port 50003 Why? Just because...;
+#X text 244 315 Backchannel!;
+#X obj 160 274 vu 15 120 empty empty -1 -8 0 10 -66577 -1 1 0;
+#X obj 159 232 env~;
+#X obj 159 252 - 90;
+#X obj 215 200 readsf~;
+#X text 353 260 VAD;
+#X obj 215 120 netreceive -u -b 50004;
+#X obj 294 203 print command;
+#N canvas 0 101 450 300 parse_command 0;
+#X obj 13 49 oscparse command;
+#X obj 13 73 list trim;
+#X obj 13 95 route command;
+#X obj 13 21 inlet;
+#X obj 13 120 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 4 0;
+#X connect 3 0 0 0;
+#X restore 215 155 pd parse_command;
+#X text 350 282 Argument - # of samples for percentile calculation
+, f 26;
+#X obj 100 260 dac~;
+#X obj 100 231 *~ 0.1;
+#X obj 75 147 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X msg 170 167 0;
+#X text 168 148 STOP;
+#X connect 0 0 5 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 4 0 2 1;
+#X connect 5 0 7 0;
+#X connect 7 0 4 0;
+#X connect 7 1 6 0;
+#X connect 12 0 13 0;
+#X connect 13 0 11 0;
+#X connect 14 0 1 0;
+#X connect 14 0 12 0;
+#X connect 14 0 21 0;
+#X connect 16 0 18 0;
+#X connect 18 0 14 0;
+#X connect 18 0 17 0;
+#X connect 21 0 20 0;
+#X connect 21 0 20 1;
+#X connect 22 0 21 1;
+#X connect 23 0 14 0;
